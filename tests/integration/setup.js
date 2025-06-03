@@ -1,6 +1,15 @@
 // Integration Test Setup
 const { setGlobalOrigin } = require('@whatwg-node/fetch');
 
+// Polyfill for Node.js environment
+if (!global.Request) {
+  const { Request, Response, Headers, fetch } = require('@whatwg-node/fetch');
+  global.Request = Request;
+  global.Response = Response;
+  global.Headers = Headers;
+  global.fetch = fetch;
+}
+
 // Set up global fetch for Node.js environment
 if (!global.fetch) {
   setGlobalOrigin('http://localhost:3000');
