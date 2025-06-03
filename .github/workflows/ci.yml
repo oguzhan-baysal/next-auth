@@ -1,0 +1,105 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  test:
+    name: Test & Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run linting
+        run: npm run lint
+        
+      - name: Type checking
+        run: npx tsc --noEmit
+        
+      - name: Run tests
+        run: npm run test:ci
+        env:
+          CI: true
+          
+      - name: Build application
+        run: npm run build
+        env:
+          NEXTAUTH_URL: http://localhost:3000
+          NEXTAUTH_SECRET: test-secret-for-ci
+          AUTH0_CLIENT_ID: test-client-id
+          AUTH0_CLIENT_SECRET: test-client-secret
+          AUTH0_ISSUER_BASE_URL: https://test.auth0.com
+
+  security:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Run security audit
+        run: npm audit --audit-level high
+        
+      - name: Check for vulnerabilities
+        run: npm audit --audit-level critical
+
+  build-and-push:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: [test, security]
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: Build Docker image
+        run: |
+          docker build -t next-auth:latest .
+          docker build -t next-auth:${{ github.sha }} .
+        
+      - name: Test Docker image
+        run: |
+          docker run --rm -d -p 3000:3000 --name test-container \
+            -e NEXTAUTH_URL=http://localhost:3000 \
+            -e NEXTAUTH_SECRET=test-secret \
+            -e AUTH0_CLIENT_ID=test \
+            -e AUTH0_CLIENT_SECRET=test \
+            -e AUTH0_ISSUER_BASE_URL=https://test.auth0.com \
+            next-auth:latest
+          
+          # Wait for container to start
+          sleep 10
+          
+          # Health check
+          curl -f http://localhost:3000 || exit 1
+          
+          # Cleanup
+          docker stop test-container 

@@ -6,7 +6,23 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "echo \"Tests not yet implemented\" && exit 0",
+    "test:ci": "npm run lint && npm run type-check",
+    "type-check": "tsc --noEmit",
+    "docker:build": "docker build -t next-auth:latest .",
+    "docker:run": "docker run -p 3000:3000 next-auth:latest",
+    "docker:dev": "docker-compose --profile dev up",
+    "docker:prod": "docker-compose --profile prod up -d",
+    "docker:monitoring": "docker-compose --profile monitoring up -d",
+    "health": "curl -f http://localhost:3000/api/health || exit 1",
+    "logs": "docker-compose logs -f",
+    "admin:user-stats": "node scripts/admin/user-stats.js",
+    "admin:cleanup": "node scripts/admin/cleanup.js",
+    "admin:backup": "node scripts/admin/backup.js",
+    "security:audit": "npm audit --audit-level high",
+    "security:fix": "npm audit fix",
+    "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.6.0",
@@ -26,6 +42,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "webpack-bundle-analyzer": "^4.10.2"
   }
 }
