@@ -33,16 +33,28 @@ jobs:
       - name: Type checking
         run: npx tsc --noEmit
         
-      - name: Run tests
-        run: npm run test:ci
+      - name: Debug Jest Configuration
+        run: |
+          echo "Jest configuration debug:"
+          npx jest --showConfig || true
+          echo "Node modules check:"
+          ls -la node_modules/@testing-library/ || true
+          echo "Test files check:"
+          find . -name "*.test.*" -type f || true
+        
+      - name: Run tests with detailed output
+        run: |
+          echo "Running Jest tests..."
+          npm run test:ci -- --verbose --no-cache --detectOpenHandles
         env:
           CI: true
+          NODE_ENV: test
           
       - name: Build application
         run: npm run build
         env:
           NEXTAUTH_URL: http://localhost:3000
-          NEXTAUTH_SECRET: test-secret-for-ci
+          NEXTAUTH_SECRET: test-secret-for-ci-minimum-32-characters
           AUTH0_CLIENT_ID: test-client-id
           AUTH0_CLIENT_SECRET: test-client-secret
           AUTH0_ISSUER_BASE_URL: https://test.auth0.com
@@ -89,7 +101,7 @@ jobs:
         run: |
           docker run --rm -d -p 3000:3000 --name test-container \
             -e NEXTAUTH_URL=http://localhost:3000 \
-            -e NEXTAUTH_SECRET=test-secret \
+            -e NEXTAUTH_SECRET=test-secret-minimum-32-chars \
             -e AUTH0_CLIENT_ID=test \
             -e AUTH0_CLIENT_SECRET=test \
             -e AUTH0_ISSUER_BASE_URL=https://test.auth0.com \
