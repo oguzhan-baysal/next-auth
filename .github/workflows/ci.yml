@@ -36,20 +36,34 @@ jobs:
       - name: Debug Jest Configuration
         run: |
           echo "Jest configuration debug:"
-          npx jest --showConfig || true
-          echo "Node modules check:"
-          ls -la node_modules/@testing-library/ || true
-          echo "Test files check:"
-          find . -name "*.test.*" -type f || true
+          echo "Current directory: $(pwd)"
+          echo "Package.json scripts:"
+          cat package.json | grep -A 10 -B 2 "test"
+          echo "Jest config file:"
+          cat jest.config.js
+          echo "Jest setup file:"
+          cat jest.setup.js || echo "No jest.setup.js found"
+          echo "Test files:"
+          find . -name "*.test.*" -type f | head -10
+          echo "Node modules:"
+          ls -la node_modules/@testing-library/ || echo "Testing library not found"
+          echo "Jest version:"
+          npx jest --version || echo "Jest version check failed"
         
       - name: Run tests with detailed output
         run: |
           echo "Running Jest tests..."
-          npm run test:ci -- --verbose --no-cache --detectOpenHandles
+          npm run test:ci -- --passWithNoTests --maxWorkers=1
         env:
           CI: true
           NODE_ENV: test
-          
+          # Auth0 test environment variables
+          NEXTAUTH_URL: http://localhost:3000
+          NEXTAUTH_SECRET: test-secret-for-ci-minimum-32-characters-long
+          AUTH0_CLIENT_ID: test-client-id
+          AUTH0_CLIENT_SECRET: test-client-secret
+          AUTH0_ISSUER_BASE_URL: https://test.auth0.com
+        
       - name: Build application
         run: npm run build
         env:
