@@ -2,6 +2,8 @@
 
 Modern web uygulamaları için güvenli, ölçeklenebir ve kullanıcı dostu bir kimlik doğrulama sistemi. Auth0'ın OAuth servisleri ile Next.js'in güçlü middleware yapısını birleştiren demo uygulaması.
 
+![Image](https://github.com/user-attachments/assets/4bfb8845-ec93-4a83-bb8a-93dbe3e728be)
+
 ## 🎯 Özellikler
 
 - ✅ **Auth0 OAuth Entegrasyonu**: Endüstri standardı kimlik doğrulama
@@ -74,28 +76,66 @@ Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
 
 ## 📁 Proje Yapısı
 
-\`\`\`
+```
 next-auth/
-├── lib/
-│   ├── auth.ts              # NextAuth.js konfigürasyonu
-│   └── utils.ts             # Utility fonksiyonları
-├── src/
-│   ├── app/
-│   │   ├── api/auth/[...nextauth]/
-│   │   │   └── route.ts     # Auth API routes
-│   │   ├── dashboard/
-│   │   │   └── page.tsx     # Korumalı dashboard sayfası
-│   │   ├── login/
-│   │   │   └── page.tsx     # Login sayfası
-│   │   ├── layout.tsx       # Ana layout
-│   │   ├── page.tsx         # Ana sayfa
-│   │   └── globals.css      # Global stiller
-│   └── middleware.ts        # Route koruması
-├── types/
-│   └── next-auth.d.ts       # TypeScript tip tanımları
-├── .env.example             # Environment örnek dosyası
-└── README.md
-\`\`\`
+│
+├── 🔧 Konfigürasyon Dosyaları
+│   ├── .env.example              # Environment değişkenleri şablonu
+│   ├── .env.local                # Yerel environment ayarları
+│   ├── package.json              # NPM bağımlılıkları
+│   ├── tailwind.config.ts        # TailwindCSS konfigürasyonu
+│   ├── tsconfig.json             # TypeScript ayarları
+│   └── next.config.js            # Next.js konfigürasyonu
+│
+├── 📚 Library & Utilities
+│   └── lib/
+│       ├── auth.ts               # Auth0 + NextAuth konfigürasyonu
+│       └── utils.ts              # Yardımcı fonksiyonlar
+│
+├── 🎯 Ana Uygulama (src/)
+│   ├── app/                      # Next.js App Router
+│   │   ├── 🏠 Ana Sayfalar
+│   │   │   ├── page.tsx          # Anasayfa
+│   │   │   ├── layout.tsx        # Global layout
+│   │   │   └── globals.css       # Global CSS stilleri
+│   │   │
+│   │   ├── 🔐 Authentication
+│   │   │   ├── login/
+│   │   │   │   └── page.tsx      # Giriş sayfası + demo kullanıcıları
+│   │   │   └── api/auth/[...nextauth]/
+│   │   │       └── route.ts      # Auth API endpoint'leri
+│   │   │
+│   │   ├── 👤 Kullanıcı Alanı
+│   │   │   └── dashboard/
+│   │   │       └── page.tsx      # Korumalı kullanıcı dashboard'u
+│   │   │
+│   │   └── 👑 Admin Paneli
+│   │       └── admin/
+│   │           ├── page.tsx      # Admin ana panel
+│   │           ├── users/
+│   │           │   └── page.tsx  # Kullanıcı yönetimi
+│   │           └── statistics/
+│   │               └── page.tsx  # Sistem istatistikleri
+│   │
+│   └── middleware.ts             # Route koruması & yetkilendirme
+│
+├── 📝 TypeScript Tanımları
+│   └── types/
+│       └── next-auth.d.ts        # NextAuth tip genişletmeleri
+│
+└── 📖 Dokümantasyon
+    └── README.md                 # Bu dosya
+```
+
+### 🗂️ Dosya Kategorileri
+
+| Kategori | Açıklama | Dosyalar |
+|----------|----------|----------|
+| **🔧 Konfigürasyon** | Proje ayarları ve environment | `.env`, `package.json`, `*.config.*` |
+| **🔐 Authentication** | Kimlik doğrulama sistemi | `lib/auth.ts`, `api/auth/`, `login/` |
+| **👤 Kullanıcı UI** | Kullanıcı arayüz sayfaları | `dashboard/`, `layout.tsx` |
+| **👑 Admin Panel** | Yönetici arayüzü | `admin/`, `admin/users/`, `admin/statistics/` |
+| **🛡️ Güvenlik** | Route koruması ve middleware | `middleware.ts`, `types/` |
 
 ## 🔒 Güvenlik Özellikleri
 
@@ -346,5 +386,5 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 ---
 
 **🎯 Demo URL**: [localhost:3000](http://localhost:3000)  
-**👨‍💻 Geliştirici**: [Your Name]  
-**🏢 Şirket**: [Your Company]
+**👨‍💻 Geliştirici**: Oğuzhan Baysal  
+

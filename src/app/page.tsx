@@ -58,7 +58,7 @@ export default async function HomePage() {
             Next.js 14, TypeScript ve Auth0 kullanarak oluşturulan modern yetkilendirme sistemi. 
             JWT tabanlı oturum yönetimi ve middleware ile sayfa koruması.
           </p>
-          
+
           <div className="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center">
             <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex">
               {session ? (
