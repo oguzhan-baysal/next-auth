@@ -2,6 +2,8 @@
 
 Modern web uygulamaları için güvenli, ölçeklenebir ve kullanıcı dostu bir kimlik doğrulama sistemi. Auth0'ın OAuth servisleri ile Next.js'in güçlü middleware yapısını birleştiren demo uygulaması.
 
+![Image](https://github.com/user-attachments/assets/4bfb8845-ec93-4a83-bb8a-93dbe3e728be)
+
 ## 🎯 Özellikler
 
 - ✅ **Auth0 OAuth Entegrasyonu**: Endüstri standardı kimlik doğrulama
@@ -384,5 +386,5 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 ---
 
 **🎯 Demo URL**: [localhost:3000](http://localhost:3000)  
-**👨‍💻 Geliştirici**: [Your Name]  
-**🏢 Şirket**: [Your Company]
+**👨‍💻 Geliştirici**: Oğuzhan Baysal  
+
