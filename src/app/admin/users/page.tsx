@@ -140,7 +140,7 @@ export default function UsersPage() {
                   placeholder="İsim veya email ara..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-500"
                 />
               </div>
 
@@ -153,7 +153,7 @@ export default function UsersPage() {
                   id="roleFilter"
                   value={selectedRole}
                   onChange={(e) => setSelectedRole(e.target.value as UserRole | 'all')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                 >
                   <option value="all">Tüm Roller</option>
                   <option value="admin">Admin</option>

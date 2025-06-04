@@ -85,7 +85,7 @@ export default async function LoginPage() {
                   </span>
                   <span className="text-xs text-gray-500">Tam Yetki</span>
                 </div>
-                <div className="text-sm font-mono">
+                <div className="text-sm font-mono text-gray-900">
                   <div><strong>Email:</strong> admin@example.com</div>
                   <div><strong>Şifre:</strong> Admin123!</div>
                 </div>
@@ -102,7 +102,7 @@ export default async function LoginPage() {
                   </span>
                   <span className="text-xs text-gray-500">Sınırlı Yetki</span>
                 </div>
-                <div className="text-sm font-mono">
+                <div className="text-sm font-mono text-gray-900">
                   <div><strong>Email:</strong> moderator@example.com</div>
                   <div><strong>Şifre:</strong> Moderator123!</div>
                 </div>
@@ -119,7 +119,7 @@ export default async function LoginPage() {
                   </span>
                   <span className="text-xs text-gray-500">Standart Yetki</span>
                 </div>
-                <div className="text-sm font-mono space-y-1">
+                <div className="text-sm font-mono space-y-1 text-gray-900">
                   <div><strong>Email:</strong> user@example.com • <strong>Şifre:</strong> User123!</div>
                   <div><strong>Email:</strong> demo@example.com • <strong>Şifre:</strong> Demo123!</div>
                 </div>
