@@ -23,7 +23,7 @@ const customJestConfig = {
     '!**/*.d.ts',
   ],
   coverageDirectory: 'coverage/integration',
-  moduleNameMapping: {
+  moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@/lib/(.*)$': '<rootDir>/lib/$1',
   },
