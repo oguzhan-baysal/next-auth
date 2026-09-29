@@ -1,19 +1,6 @@
 // Integration Test Setup
-const { setGlobalOrigin } = require('@whatwg-node/fetch');
-
-// Polyfill for Node.js environment
-if (!global.Request) {
-  const { Request, Response, Headers, fetch } = require('@whatwg-node/fetch');
-  global.Request = Request;
-  global.Response = Response;
-  global.Headers = Headers;
-  global.fetch = fetch;
-}
-
-// Set up global fetch for Node.js environment
-if (!global.fetch) {
-  setGlobalOrigin('http://localhost:3000');
-}
+// Node.js 18 and newer already expose fetch, Request, Response and Headers as
+// globals, so no WHATWG fetch polyfill is required here.
 
 // Mock environment variables for integration tests
 process.env.NEXTAUTH_URL = 'http://localhost:3000';
